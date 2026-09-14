@@ -57,8 +57,8 @@ for i in range(len(car_links)):
 
   # Main car information
 
-  carName = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy")
-  carDesc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF")
+  name = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy")
+  desc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF")
   price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu")
 
 
@@ -69,6 +69,9 @@ for i in range(len(car_links)):
     # print(f"Feature {index}: {feature_text}")
 
 # hardcode stuff, but it works so whatever
+name.text.strip()
+desc.text.strip()
+price.text.strip()
 mileage       = (features, 0)
 registration  = (features, 1)
 fuel          = (features, 2)
