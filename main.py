@@ -52,36 +52,33 @@ car_links = sorted(
 # Loop and find specific vehicle information
 
 for i in range(len(car_links)):
-  response = requests.get(car_links[i])
-  soup = BeautifulSoup(response.content, 'html.parser')
+    response = requests.get(car_links[i])
+    soup = BeautifulSoup(response.content, 'html.parser')
 
-  # Main car information
+    # Main car information (1)
+    name = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy")
+    desc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF")
+    price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu")
 
-  name = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy")
-  desc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF")
-  price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu")
+    # redo
+    raw = soup.find_all("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d") # finding the same overview elements
 
+    # grab the text and strip it for loop counting the amount of iterations of the class inside raw
+    features = [f.text.strip() for f in raw]
 
-  # enum through a specific class, "overview" which has all the info i need.
-  features = soup.find_all("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d") # specific class which has the overview stuff)
-  for index, feature in enumerate(features):  #enumeration and indexing)
-    feature_text = feature.text.strip() #strip text and add it into index and value)
-    # print(f"Feature {index}: {feature_text}")
+    # hardcode sl0p
+    name.text.strip()
+    desc.text.strip()
+    price.text.strip()
+    mileage      = features[0] if len(features) > 0 else "N/A"
+    registration = features[1] if len(features) > 1 else "N/A"
+    fuel         = features[2] if len(features) > 2 else "N/A"
+    body_type    = features[3] if len(features) > 3 else "N/A"
+    engine_size  = features[4] if len(features) > 4 else "N/A"
+    gearbox      = features[5] if len(features) > 5 else "N/A"
+    doors        = features[6] if len(features) > 6 else "N/A"
+    seats        = features[7] if len(features) > 7 else "N/A"
+    emission     = features[8] if len(features) > 8 else "N/A"
+    color        = features[9] if len(features) > 9 else "N/A"
 
-# hardcode stuff, but it works so whatever
-name.text.strip()
-desc.text.strip()
-price.text.strip()
-mileage       = (features, 0)
-registration  = (features, 1)
-fuel          = (features, 2)
-body_type     = (features, 3)
-engine_size   = (features, 4)
-gearbox       = (features, 5)
-doors         = (features, 6)
-seats         = (features, 7)
-emission      = (features, 8)
-color         = (features, 9)
-
-
-print()
+    print(name, "|", desc, "|", price, "|", mileage, "|", registration, "|", fuel, "|", body_type, "|", engine_size, "|", gearbox, "|", doors, "|", seats, "|", emission, "|", color)
