@@ -56,9 +56,9 @@ for i in range(len(car_links)):
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Main car information (1)
-    name = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy")
-    desc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF")
-    price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu")
+    name = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy").text.strip()
+    desc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF").text.strip()
+    price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu").text.strip()
 
     # redo
     raw = soup.find_all("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d") # finding the same overview elements
@@ -67,9 +67,6 @@ for i in range(len(car_links)):
     features = [f.text.strip() for f in raw]
 
     # hardcode sl0p
-    name.text.strip()
-    desc.text.strip()
-    price.text.strip()
     mileage      = features[0] if len(features) > 0 else "N/A"
     registration = features[1] if len(features) > 1 else "N/A"
     fuel         = features[2] if len(features) > 2 else "N/A"
