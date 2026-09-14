@@ -60,5 +60,8 @@ for i in range(len(car_links)):
   carName = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy")
   carDesc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF")
   price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu")
+  mileage = soup.find("button", class_="YRCjRq__root atds-link sc-1eqq2tl-0 fUeNoL")
+  gearbox = soup.find("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d")
+  fuel = soup.find("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d")
 
-  print(carName.get_text(), carDesc.get_text(), price.get_text())
+  print(carName.get_text(), carDesc.get_text(), price.get_text(), mileage.get_text(), gearbox.get_text(), fuel.get_text())
