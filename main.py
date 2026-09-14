@@ -52,16 +52,30 @@ car_links = sorted(
 # Loop and find specific vehicle information
 
 for i in range(len(car_links)):
-  response = requests.get(car_links[i])
-  soup = BeautifulSoup(response.content, 'html.parser')
+    response = requests.get(car_links[i])
+    soup = BeautifulSoup(response.content, 'html.parser')
 
+    # Main car information (1)
+    name = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy").text.strip()
+    desc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF").text.strip()
+    price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu").text.strip()
 
+    # redo
+    raw = soup.find_all("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d") # finding the same overview elements
 
-  carName = soup.find("h1", class_="sc-1n64n0d-8 sc-j1c9qm-2 gmXvZp kzofPy")
-  carDesc = soup.find("span", class_="sc-1n64n0d-7 sc-j1c9qm-4 kDYJWK fiumgF")
-  price = soup.find("p", attrs={"data-testid": "advert-price"}, class_="sc-1n64n0d-5 sc-1t1ktfs-0 hQsESP etMJIu")
-  mileage = soup.find("button", class_="YRCjRq__root atds-link sc-1eqq2tl-0 fUeNoL")
-  gearbox = soup.find("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d")
-  fuel = soup.find("p", class_="sc-1n64n0d-7 sc-1yzvd0s-6 kDYJWK isZEA-d")
+    # grab the text and strip it for loop counting the amount of iterations of the class inside raw
+    features = [f.text.strip() for f in raw]
 
-  print(carName.get_text(), carDesc.get_text(), price.get_text(), mileage.get_text(), gearbox.get_text(), fuel.get_text())
+    # hardcode sl0p
+    mileage      = features[0] if len(features) > 0 else "N/A"
+    registration = features[1] if len(features) > 1 else "N/A"
+    fuel         = features[2] if len(features) > 2 else "N/A"
+    body_type    = features[3] if len(features) > 3 else "N/A"
+    engine_size  = features[4] if len(features) > 4 else "N/A"
+    gearbox      = features[5] if len(features) > 5 else "N/A"
+    doors        = features[6] if len(features) > 6 else "N/A"
+    seats        = features[7] if len(features) > 7 else "N/A"
+    emission     = features[8] if len(features) > 8 else "N/A"
+    color        = features[9] if len(features) > 9 else "N/A"
+
+    print(name, "|", desc, "|", price, "|", mileage, "|", registration, "|", fuel, "|", body_type, "|", engine_size, "|", gearbox, "|", doors, "|", seats, "|", emission, "|", color)
